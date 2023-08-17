@@ -53,7 +53,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 			>
 				<NextUIProvider>{getLayout(<Component {...pageProps} />)}</NextUIProvider>
 			</NextThemesProvider>
-			//{' '}
 		</SessionContextProvider>
 	);
 }

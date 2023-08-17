@@ -2,17 +2,14 @@ import { useRouter } from 'next/router';
 
 import { Avatar, Dropdown, Navbar, Text } from '@nextui-org/react';
 import { User } from '@supabase/auth-helpers-nextjs';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import React, { Key } from 'react';
 
 import { DarkModeSwitch } from './darkmodeswitch';
 
-type CompomentProps = {
-	user: User;
-};
-
-export const UserDropdown = ({ user }: CompomentProps) => {
+export const UserDropdown = () => {
 	const supabaseClient = useSupabaseClient();
+	const user = useUser();
 	const router = useRouter();
 
 	const logout = async () => {

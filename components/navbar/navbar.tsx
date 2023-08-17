@@ -11,11 +11,7 @@ import { BurguerButton } from './burguer-button';
 import { NotificationsDropdown } from './notifications-dropdown';
 import { UserDropdown } from './user-dropdown';
 
-type CompomentProps = {
-	user: User;
-};
-
-export const NavbarWrapper = ({ user }: CompomentProps) => {
+export const NavbarWrapper = () => {
 	const collapseItems = [
 		'Profile',
 		'Dashboard',
@@ -100,7 +96,7 @@ export const NavbarWrapper = ({ user }: CompomentProps) => {
 					</Link>
 				</Navbar.Content>
 				<Navbar.Content>
-					<UserDropdown user={user} />
+					<UserDropdown />
 				</Navbar.Content>
 			</Navbar.Content>
 

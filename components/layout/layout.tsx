@@ -1,4 +1,5 @@
 import { Session } from '@supabase/auth-helpers-nextjs';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import React from 'react';
 
 import { useLockedBody } from '../hooks/useBodyLock';
@@ -9,17 +10,21 @@ import { SidebarContext } from './layout-context';
 import { WrapperLayout } from './layout.styles';
 
 interface Props {
-	initialSession: Session;
 	children: React.ReactNode;
 }
 
-export const Layout = ({ initialSession, children }: Props) => {
+export const Layout = ({ children }: Props) => {
+	const sessionContext = useSessionContext();
 	const [sidebarOpen, setSidebarOpen] = React.useState(false);
 	const [_, setLocked] = useLockedBody(false);
 	const handleToggleSidebar = () => {
 		setSidebarOpen(!sidebarOpen);
 		setLocked(!sidebarOpen);
 	};
+
+	if (sessionContext.isLoading) {
+		return null;
+	}
 
 	return (
 		<SidebarContext.Provider
@@ -40,7 +45,7 @@ export const Layout = ({ initialSession, children }: Props) => {
 						overflowX: 'hidden',
 					}}
 				>
-					<NavbarWrapper user={initialSession?.user}></NavbarWrapper>
+					<NavbarWrapper></NavbarWrapper>
 					{children}
 				</Box>
 			</WrapperLayout>

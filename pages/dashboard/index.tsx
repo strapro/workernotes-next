@@ -1,33 +1,18 @@
-import { GetServerSidePropsContext } from 'next';
-
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react';
 import type { ReactElement } from 'react';
 
 import { Content } from '../../components/home/content';
 import { Layout } from '../../components/layout/layout';
 import type { NextPageWithLayout } from '../_app';
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-	// Create authenticated Supabase Client
-	const supabase = createPagesServerClient(ctx);
-	// Check if we have a session
-	const {
-		data: { session },
-	} = await supabase.auth.getSession();
+const Home: NextPageWithLayout = () => {
+	const user = useUser();
 
-	return {
-		props: {
-			initialSession: session,
-		},
-	};
-};
-
-const Home: NextPageWithLayout = ({ initialSession }) => {
-	return <Content user={initialSession?.user} />;
+	return <Content user={user!} />;
 };
 
 Home.getLayout = (page: ReactElement) => {
-	return <Layout {...page.props}>{page}</Layout>;
+	return <Layout>{page}</Layout>;
 };
 
 export default Home;
