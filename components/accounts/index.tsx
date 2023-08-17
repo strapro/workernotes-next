@@ -33,7 +33,6 @@ export const Accounts = ({ user }: PageProps) => {
 			justify={'center'}
 			direction={'column'}
 		>
-			{user?.email}
 			<Breadcrumbs>
 				<Crumb>
 					<HouseIcon />

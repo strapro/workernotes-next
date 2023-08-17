@@ -51,7 +51,6 @@ export const Content = ({ user }: PageProps) => {
 				>
 					{/* Card Section Top */}
 					<Box>
-						{user?.email}
 						<Text
 							h3
 							css={{
