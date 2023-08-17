@@ -5,6 +5,8 @@ import React from 'react';
 import { PiHouseFill, PiTableBold, PiUsersFill } from 'react-icons/pi';
 
 import { Breadcrumbs, Crumb, CrumbLink } from '../breadcrumb/breadcrumb.styled';
+import { HouseIcon } from '../icons/breadcrumb/house-icon';
+import { UsersIcon } from '../icons/breadcrumb/users-icon';
 import { Flex } from '../styles/flex';
 import { TableWrapper } from '../table/table';
 import { AddUser } from './add-user';
