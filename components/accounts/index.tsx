@@ -2,24 +2,14 @@ import Link from 'next/link';
 
 import { Button, Input, Text } from '@nextui-org/react';
 import React from 'react';
+import { PiHouseFill, PiTableBold, PiUsersFill } from 'react-icons/pi';
 
 import { Breadcrumbs, Crumb, CrumbLink } from '../breadcrumb/breadcrumb.styled';
-import { DotsIcon } from '../icons/accounts/dots-icon';
-import { ExportIcon } from '../icons/accounts/export-icon';
-import { InfoIcon } from '../icons/accounts/info-icon';
-import { TrashIcon } from '../icons/accounts/trash-icon';
-import { HouseIcon } from '../icons/breadcrumb/house-icon';
-import { UsersIcon } from '../icons/breadcrumb/users-icon';
-import { SettingsIcon } from '../icons/sidebar/settings-icon';
 import { Flex } from '../styles/flex';
 import { TableWrapper } from '../table/table';
 import { AddUser } from './add-user';
 
-type PageProps = {
-	user: User;
-};
-
-export const Accounts = ({ user }: PageProps) => {
+export const Accounts = () => {
 	return (
 		<Flex
 			css={{
@@ -33,9 +23,17 @@ export const Accounts = ({ user }: PageProps) => {
 			justify={'center'}
 			direction={'column'}
 		>
-			<Breadcrumbs>
+			<Breadcrumbs
+				css={{
+					svg: {
+						color: '$accents6',
+						height: '1.2em',
+						width: 'auto',
+					},
+				}}
+			>
 				<Crumb>
-					<HouseIcon />
+					<PiHouseFill />
 					<Link href={'/'}>
 						<CrumbLink href="#">Home</CrumbLink>
 					</Link>
@@ -43,7 +41,7 @@ export const Accounts = ({ user }: PageProps) => {
 				</Crumb>
 
 				<Crumb>
-					<UsersIcon />
+					<PiUsersFill />
 					<CrumbLink href="#">Users</CrumbLink>
 					<Text>/</Text>
 				</Crumb>
@@ -63,14 +61,21 @@ export const Accounts = ({ user }: PageProps) => {
 					align={'center'}
 				>
 					<Input css={{ width: '100%', maxW: '410px' }} placeholder="Search users" />
-					<SettingsIcon />
-					<TrashIcon />
-					<InfoIcon />
-					<DotsIcon />
 				</Flex>
-				<Flex direction={'row'} css={{ gap: '$6' }} wrap={'wrap'}>
+				<Flex
+					direction={'row'}
+					css={{
+						gap: '$6',
+						svg: {
+							color: '$text',
+							height: '1.7em',
+							width: 'auto',
+						},
+					}}
+					wrap={'wrap'}
+				>
 					<AddUser />
-					<Button auto iconRight={<ExportIcon />}>
+					<Button auto iconRight={<PiTableBold />}>
 						Export to CSV
 					</Button>
 				</Flex>
