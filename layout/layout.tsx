@@ -2,10 +2,10 @@ import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import React from 'react';
 
+import { NavbarWrapper } from '../components/navbar/navbar';
+import { SidebarWrapper } from '../components/sidebar/sidebar';
+import { Box } from '../components/styles/box';
 import { useLockedBody } from '../hooks/useBodyLock';
-import { NavbarWrapper } from '../navbar/navbar';
-import { SidebarWrapper } from '../sidebar/sidebar';
-import { Box } from '../styles/box';
 import { SidebarContext } from './layout-context';
 import { WrapperLayout } from './layout.styles';
 

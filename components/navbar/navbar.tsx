@@ -1,12 +1,7 @@
-import { Input, Link, Navbar, Text } from '@nextui-org/react';
-import { User } from '@supabase/auth-helpers-nextjs';
+import { Input, Link, Navbar } from '@nextui-org/react';
 import React from 'react';
+import { PiMagnifyingGlassBold } from 'react-icons/pi';
 
-import { FeedbackIcon } from '../icons/navbar/feedback-icon';
-import { GithubIcon } from '../icons/navbar/github-icon';
-import { SupportIcon } from '../icons/navbar/support-icon';
-import { SearchIcon } from '../icons/searchicon';
-import { Flex } from '../styles/flex';
 import { BurguerButton } from './burguer-button';
 import { NotificationsDropdown } from './notifications-dropdown';
 import { UserDropdown } from './user-dropdown';
@@ -52,12 +47,15 @@ export const NavbarWrapper = () => {
 			<Navbar.Content
 				hideIn={'md'}
 				css={{
-					width: '100%',
+					width: '70%',
+					svg: {
+						color: '$accents6',
+					},
 				}}
 			>
 				<Input
 					clearable
-					contentLeft={<SearchIcon fill="var(--nextui-colors-accents6)" size={16} />}
+					contentLeft={<PiMagnifyingGlassBold />}
 					contentLeftStyling={false}
 					css={{
 						w: '100%',
@@ -76,24 +74,8 @@ export const NavbarWrapper = () => {
 				/>
 			</Navbar.Content>
 			<Navbar.Content>
-				<Navbar.Content hideIn={'md'}>
-					<Flex align={'center'} css={{ gap: '$4' }}>
-						<FeedbackIcon />
-						<Text span>Feedback?</Text>
-					</Flex>
-				</Navbar.Content>
-
 				<Navbar.Content>
 					<NotificationsDropdown />
-				</Navbar.Content>
-
-				<Navbar.Content hideIn={'md'}>
-					<SupportIcon />
-				</Navbar.Content>
-				<Navbar.Content>
-					<Link href="https://github.com/" target={'_blank'}>
-						<GithubIcon />
-					</Link>
 				</Navbar.Content>
 				<Navbar.Content>
 					<UserDropdown />

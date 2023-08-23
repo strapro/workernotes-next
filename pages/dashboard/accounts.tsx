@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 
 import { Accounts as AccountsCompoment } from '../../components/accounts';
-import { Layout } from '../../components/layout/layout';
+import { Layout } from '../../layout/layout';
 import type { NextPageWithLayout } from '../_app';
 
 const Accounts: NextPageWithLayout = () => {

@@ -2,12 +2,12 @@ import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 
 import { Link, Text } from '@nextui-org/react';
-import { User } from '@supabase/supabase-js';
 import React from 'react';
 
+import { columns, users } from '../accounts/data';
+import { Table } from '../accounts/table';
 import { Box } from '../styles/box';
 import { Flex } from '../styles/flex';
-import { TableWrapper } from '../table/table';
 import { CardAgents } from './card-agents';
 import { CardBalance1 } from './card-balance1';
 import { CardBalance2 } from './card-balance2';
@@ -18,11 +18,7 @@ const Chart = dynamic(() => import('../charts/steam').then(mod => mod.Steam), {
 	ssr: false,
 });
 
-type PageProps = {
-	user: User;
-};
-
-export const Content = ({ user }: PageProps) => {
+export const Content = () => {
 	return (
 		<Box css={{ overflow: 'hidden', height: '100%' }}>
 			<Flex
@@ -190,7 +186,7 @@ export const Content = ({ user }: PageProps) => {
 						</Link>
 					</NextLink>
 				</Flex>
-				<TableWrapper />
+				<Table users={users} columns={columns} />
 			</Flex>
 		</Box>
 	);

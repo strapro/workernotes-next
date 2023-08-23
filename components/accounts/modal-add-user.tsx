@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Flex } from '../styles/flex';
 
-export const AddUser = () => {
+export const ModalAddUser = () => {
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
 

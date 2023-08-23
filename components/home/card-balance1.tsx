@@ -1,7 +1,7 @@
 import { Card, Text } from '@nextui-org/react';
 import React from 'react';
+import { PiUsersThreeBold } from 'react-icons/pi';
 
-import { Community } from '../icons/community';
 import { Box } from '../styles/box';
 import { Flex } from '../styles/flex';
 
@@ -16,8 +16,16 @@ export const CardBalance1 = () => {
 			}}
 		>
 			<Card.Body css={{ py: '$10' }}>
-				<Flex css={{ gap: '$5' }}>
-					<Community />
+				<Flex
+					css={{
+						gap: '$5',
+						svg: {
+							height: '1.7em',
+							width: 'auto',
+						},
+					}}
+				>
+					<PiUsersThreeBold />
 					<Flex direction={'column'}>
 						<Text span css={{ color: 'white' }}>
 							Auto Insurance

@@ -1,11 +1,22 @@
 import { Table } from '@nextui-org/react';
-import React from 'react';
+import React, { Key, ReactNode } from 'react';
 
 import { Box } from '../styles/box';
-import { columns, users } from './data';
-import { RenderCell } from './render-cell';
+import { TableCell } from './table-cell';
 
-export const TableWrapper = () => {
+export type Column = { name: string; uid: string };
+
+interface TableProps<T> {
+	data: Array<T>;
+	columns: Array<Column>;
+	children?: (item: T, columnKey: Key) => ReactNode;
+}
+
+export const TableWrapper = <T extends object>({
+	columns,
+	data,
+	children,
+}: TableProps<T>) => {
 	return (
 		<Box
 			css={{
@@ -36,12 +47,13 @@ export const TableWrapper = () => {
 						</Table.Column>
 					)}
 				</Table.Header>
-				<Table.Body items={users}>
+				<Table.Body items={data}>
 					{item => (
 						<Table.Row>
 							{columnKey => (
 								<Table.Cell>
-									{RenderCell({ user: item, columnKey: columnKey })}
+									{(children !== undefined && children!(item, columnKey)) ||
+										TableCell({ item: item, columnKey: columnKey })}
 								</Table.Cell>
 							)}
 						</Table.Row>

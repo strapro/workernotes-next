@@ -1,14 +1,15 @@
 import { Dropdown, Navbar } from '@nextui-org/react';
 import React from 'react';
-
-import { NotificationIcon } from '../icons/navbar/notificationicon';
+import { PiBellSimpleFill } from 'react-icons/pi';
 
 export const NotificationsDropdown = () => {
 	return (
 		<Dropdown placement="bottom-right">
-			<Dropdown.Trigger>
+			<Dropdown.Trigger
+				css={{ svg: { color: '$accents6', height: '1.7em', width: 'auto' } }}
+			>
 				<Navbar.Item>
-					<NotificationIcon />
+					<PiBellSimpleFill />
 				</Navbar.Item>
 			</Dropdown.Trigger>
 			<Dropdown.Menu

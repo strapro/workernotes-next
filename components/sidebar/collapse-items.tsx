@@ -1,13 +1,16 @@
+import Link from 'next/link';
+
 import { Collapse, Text } from '@nextui-org/react';
 import React, { useState } from 'react';
+import { PiCaretUpBold } from 'react-icons/pi';
 
-import { ChevronUpIcon } from '../icons/sidebar/chevron-up-icon';
+import { MenuItem } from '../../types/menu';
 import { Flex } from '../styles/flex';
 
 interface Props {
 	icon: React.ReactNode;
 	title: string;
-	items: string[];
+	items: Array<MenuItem>;
 }
 
 export const CollapseItems = ({ icon, items, title }: Props) => {
@@ -40,6 +43,24 @@ export const CollapseItems = ({ icon, items, title }: Props) => {
 							'&:hover': {
 								bg: '$accents2',
 							},
+							svg: {
+								'&.collapse-trigger': {
+									height: '1.2em',
+									width: 'auto',
+									marginTop: '4px',
+									transition: 'transform 0.3s ease',
+									transform: open ? 'rotate(-180deg)' : 'rotate(0deg)',
+								},
+							},
+							svg: {
+								'&.collapse-trigger': {
+									height: '1.2em',
+									width: 'auto',
+									marginTop: '4px',
+									transition: 'transform 0.3s ease',
+									transform: open ? 'rotate(-180deg)' : 'rotate(0deg)',
+								},
+							},
 						}}
 						justify={'between'}
 						onClick={handleToggle}
@@ -58,12 +79,7 @@ export const CollapseItems = ({ icon, items, title }: Props) => {
 							</Text>
 						</Flex>
 
-						<ChevronUpIcon
-							css={{
-								transition: 'transform 0.3s ease',
-								transform: open ? 'rotate(-180deg)' : 'rotate(0deg)',
-							}}
-						/>
+						<PiCaretUpBold className="collapse-trigger" />
 					</Flex>
 				}
 				css={{
@@ -99,7 +115,7 @@ export const CollapseItems = ({ icon, items, title }: Props) => {
 								},
 							}}
 						>
-							{item}
+							<Link href={item.href}>{item.title}</Link>
 						</Text>
 					</Flex>
 				))}

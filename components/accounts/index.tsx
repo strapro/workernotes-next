@@ -1,15 +1,12 @@
-import Link from 'next/link';
-
 import { Button, Input, Text } from '@nextui-org/react';
 import React from 'react';
-import { PiHouseFill, PiTableBold, PiUsersFill } from 'react-icons/pi';
+import { PiTableBold } from 'react-icons/pi';
 
-import { Breadcrumbs, Crumb, CrumbLink } from '../breadcrumb/breadcrumb.styled';
-import { HouseIcon } from '../icons/breadcrumb/house-icon';
-import { UsersIcon } from '../icons/breadcrumb/users-icon';
+import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { Flex } from '../styles/flex';
-import { TableWrapper } from '../table/table';
-import { AddUser } from './add-user';
+import { columns, users } from './data';
+import { ModalAddUser } from './modal-add-user';
+import { Table } from './table';
 
 export const Accounts = () => {
 	return (
@@ -25,32 +22,7 @@ export const Accounts = () => {
 			justify={'center'}
 			direction={'column'}
 		>
-			<Breadcrumbs
-				css={{
-					svg: {
-						color: '$accents6',
-						height: '1.2em',
-						width: 'auto',
-					},
-				}}
-			>
-				<Crumb>
-					<PiHouseFill />
-					<Link href={'/'}>
-						<CrumbLink href="#">Home</CrumbLink>
-					</Link>
-					<Text>/</Text>
-				</Crumb>
-
-				<Crumb>
-					<PiUsersFill />
-					<CrumbLink href="#">Users</CrumbLink>
-					<Text>/</Text>
-				</Crumb>
-				<Crumb>
-					<CrumbLink href="#">List</CrumbLink>
-				</Crumb>
-			</Breadcrumbs>
+			<Breadcrumbs />
 
 			<Text h3>All Accounts</Text>
 			<Flex css={{ gap: '$8' }} align={'center'} justify={'between'} wrap={'wrap'}>
@@ -69,21 +41,21 @@ export const Accounts = () => {
 					css={{
 						gap: '$6',
 						svg: {
-							color: '$text',
+							color: '$primarySolidContrast',
 							height: '1.7em',
 							width: 'auto',
 						},
 					}}
 					wrap={'wrap'}
 				>
-					<AddUser />
+					<ModalAddUser />
 					<Button auto iconRight={<PiTableBold />}>
 						Export to CSV
 					</Button>
 				</Flex>
 			</Flex>
 
-			<TableWrapper />
+			<Table users={users} columns={columns} />
 		</Flex>
 	);
 };
