@@ -1,10 +1,10 @@
+import { Worker } from '../../types/database';
 import { Column, TableWrapper } from '../table/table';
-import { users } from './data';
 import { TableNameCell } from './table-name-cell';
 import { TableRoleCell } from './table-role-cell';
 
 interface Props {
-	users: typeof users;
+	users: Array<Worker>;
 	columns: Array<Column>;
 }
 

@@ -1,14 +1,25 @@
 import { User } from '@nextui-org/react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
-import { users } from './data';
+import { Database, Worker } from '../../types/database';
 
 interface Props {
-	user: (typeof users)[number];
+	user: Worker;
 }
 
 export const TableNameCell = ({ user }: Props) => {
+	const supabase = createClientComponentClient<Database>();
+	const profilePic = supabase.storage
+		.from('worker-profile-pics')
+		.getPublicUrl(user.profile_pic!).data.publicUrl;
+
 	return (
-		<User squared src={user.avatar} name={user.name} css={{ p: 0 }}>
+		<User
+			squared
+			src={profilePic}
+			name={`${user.first_name}  ${user.last_name}`}
+			css={{ p: 0 }}
+		>
 			{user.email}
 		</User>
 	);

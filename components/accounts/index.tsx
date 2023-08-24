@@ -1,14 +1,51 @@
 import { Button, Input, Text } from '@nextui-org/react';
-import React from 'react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { PiTableBold } from 'react-icons/pi';
 
+import { Database, Worker } from '../../types/database';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { Flex } from '../styles/flex';
-import { columns, users } from './data';
+import { columns } from './data';
 import { ModalAddUser } from './modal-add-user';
 import { Table } from './table';
 
 export const Accounts = () => {
+	const [loading, setLoading] = useState(true);
+	const [data, setData] = useState([] as Array<Worker>);
+
+	const supabase = createClientComponentClient<Database>();
+
+	const user = useUser();
+
+	const getAccounts = useCallback(async () => {
+		try {
+			setLoading(true);
+
+			let { data, error, status } = await supabase
+				.from('workers')
+				.select('*, departments (*), levels (*)')
+				.eq('manager_id', user?.id);
+
+			if (error && status !== 406) {
+				throw error;
+			}
+
+			if (data) {
+				setData(data);
+			}
+		} catch (error) {
+			alert('Error loading accounts');
+		} finally {
+			setLoading(false);
+		}
+	}, [user, supabase]);
+
+	useEffect(() => {
+		getAccounts();
+	}, [user, getAccounts]);
+
 	return (
 		<Flex
 			css={{
@@ -55,7 +92,7 @@ export const Accounts = () => {
 				</Flex>
 			</Flex>
 
-			<Table users={users} columns={columns} />
+			{!loading && <Table users={data} columns={columns} />}
 		</Flex>
 	);
 };
