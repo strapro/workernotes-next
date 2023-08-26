@@ -13,7 +13,7 @@ import { Table } from './table';
 
 export const Accounts = () => {
 	const [loading, setLoading] = useState(true);
-	const [data, setData] = useState([] as Array<Worker>);
+	const [data, setData] = useState<Array<Worker>>([]);
 
 	const supabase = createClientComponentClient<Database>();
 
@@ -44,7 +44,7 @@ export const Accounts = () => {
 
 	useEffect(() => {
 		getAccounts();
-	}, [user, getAccounts]);
+	}, [getAccounts]);
 
 	return (
 		<Flex
