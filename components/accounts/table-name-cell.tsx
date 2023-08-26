@@ -15,7 +15,8 @@ export const TableNameCell = ({ user }: Props) => {
 
 	return (
 		<User
-			squared
+			bordered
+			color="gradient"
 			src={profilePic}
 			name={`${user.first_name}  ${user.last_name}`}
 			css={{ p: 0 }}
