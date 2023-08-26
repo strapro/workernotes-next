@@ -127,6 +127,7 @@ export interface Database {
           level_id: string | null
           manager_id: string | null
           profile_pic: string | null
+          status: string | null
           updated_at: string | null
         }
         Insert: {
@@ -139,6 +140,7 @@ export interface Database {
           level_id?: string | null
           manager_id?: string | null
           profile_pic?: string | null
+          status?: string | null
           updated_at?: string | null
         }
         Update: {
@@ -151,6 +153,7 @@ export interface Database {
           level_id?: string | null
           manager_id?: string | null
           profile_pic?: string | null
+          status?: string | null
           updated_at?: string | null
         }
         Relationships: [
