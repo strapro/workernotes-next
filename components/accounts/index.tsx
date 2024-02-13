@@ -74,7 +74,11 @@ export const Accounts = () => {
 					}}
 					align={'center'}
 				>
-					<Input css={{ width: '100%', maxW: '410px' }} placeholder="Search users" />
+					<Input
+						aria-label="Search"
+						css={{ width: '100%', maxW: '410px' }}
+						placeholder="Search users"
+					/>
 				</Flex>
 				<Flex
 					direction={'row'}
