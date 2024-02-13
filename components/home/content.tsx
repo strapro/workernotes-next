@@ -147,48 +147,6 @@ export const Content = () => {
 					</Flex>
 				</Box>
 			</Flex>
-
-			{/* Table Latest Users */}
-			<Flex
-				direction={'column'}
-				justify={'center'}
-				css={{
-					width: '100%',
-					py: '$10',
-					px: '$10',
-					mt: '$8',
-					'@sm': { px: '$20' },
-				}}
-			>
-				<Flex justify={'between'} wrap={'wrap'}>
-					<Text
-						h3
-						css={{
-							textAlign: 'center',
-							'@lg': {
-								textAlign: 'inherit',
-							},
-						}}
-					>
-						Latest Users
-					</Text>
-					<NextLink href="/dashboard/accounts">
-						<Link
-							block
-							color="primary"
-							css={{
-								textAlign: 'center',
-								'@lg': {
-									textAlign: 'inherit',
-								},
-							}}
-						>
-							View All
-						</Link>
-					</NextLink>
-				</Flex>
-				<Table users={users} columns={columns} />
-			</Flex>
 		</Box>
 	);
 };
