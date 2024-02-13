@@ -1,3 +1,6 @@
+import { Ulid, Uuid4 } from 'id128';
+import React, { useCallback, useEffect, useState } from 'react';
+
 import {
 	Avatar,
 	Button,
@@ -7,13 +10,13 @@ import {
 	Modal,
 	Text,
 } from '@nextui-org/react';
+
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useUser } from '@supabase/auth-helpers-react';
-import { Ulid, Uuid4 } from 'id128';
-import React, { useCallback, useEffect, useState } from 'react';
 
-import { Database, Worker } from '../../types/database';
-import { Flex } from '../styles/flex';
+import { Flex } from 'components/styles/flex';
+
+import { Database, Worker } from 'types/database';
 
 type Props = {
 	id?: string | null;

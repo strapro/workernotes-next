@@ -1,6 +1,6 @@
 import { Col, Row, Text } from '@nextui-org/react';
 
-import { Worker } from '../../types/database';
+import { Worker } from 'types/database';
 
 interface Props {
 	user: Worker;

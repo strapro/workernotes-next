@@ -1,8 +1,10 @@
 import type { ReactElement } from 'react';
 
-import { Accounts as AccountsCompoment } from '../../components/accounts';
-import { Layout } from '../../layout/layout';
-import type { NextPageWithLayout } from '../_app';
+import { Accounts as AccountsCompoment } from 'components/accounts';
+
+import { Layout } from 'layout/layout';
+
+import type { NextPageWithLayout } from 'pages/_app';
 
 const Accounts: NextPageWithLayout = () => {
 	return <AccountsCompoment />;

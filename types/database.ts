@@ -1,6 +1,6 @@
-import { Database } from './database.generated';
+import { Database } from 'types/database.generated';
 
-export type { Database } from './database.generated';
+export type { Database } from 'types/database.generated';
 
 export type Worker = Database['public']['Tables']['workers']['Row'] & {
 	departments?: Database['public']['Tables']['departments']['Row'] | null;

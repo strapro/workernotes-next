@@ -1,12 +1,14 @@
-import { Text } from '@nextui-org/react';
 import React from 'react';
 
-import { useSidebarContext } from '../../layout/layout-context';
-import { Box } from '../styles/box';
-import { Flex } from '../styles/flex';
-import { CompaniesDropdown } from './companies-dropdown';
-import { SidebarBody } from './sidebar-body';
-import { Sidebar } from './sidebar.styles';
+import { Text } from '@nextui-org/react';
+
+import { Sidebar } from 'components/sidebar/_styles';
+import { CompaniesDropdown } from 'components/sidebar/companies-dropdown';
+import { SidebarBody } from 'components/sidebar/sidebar-body';
+import { Box } from 'components/styles/box';
+import { Flex } from 'components/styles/flex';
+
+import { useSidebarContext } from 'layout/layout-context';
 
 export const SidebarWrapper = () => {
 	const { collapsed, setCollapsed } = useSidebarContext();

@@ -1,7 +1,8 @@
-import { Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Flex } from '../styles/flex';
+import { Text } from '@nextui-org/react';
+
+import { Flex } from 'components/styles/flex';
 
 interface Props {
 	title: string;

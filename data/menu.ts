@@ -1,6 +1,6 @@
 import { PiCode, PiKanbanFill, PiUserSquareFill, PiWalletFill } from 'react-icons/pi';
 
-import { Menu } from './../types/menu';
+import { Menu } from 'types/menu';
 
 export const menu: Menu = [
 	{

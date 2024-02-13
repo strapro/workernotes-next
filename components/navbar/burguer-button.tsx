@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { useSidebarContext } from '../../layout/layout-context';
-import { StyledBurgerButton } from './navbar.styles';
+import { StyledBurgerButton } from 'components/navbar/_styles';
+
+import { useSidebarContext } from 'layout/layout-context';
 
 export const BurguerButton = () => {
 	const { collapsed, setCollapsed } = useSidebarContext();

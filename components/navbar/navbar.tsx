@@ -1,10 +1,11 @@
-import { Input, Link, Navbar } from '@nextui-org/react';
 import React from 'react';
 import { PiMagnifyingGlassBold } from 'react-icons/pi';
 
-import { BurguerButton } from './burguer-button';
-import { NotificationsDropdown } from './notifications-dropdown';
-import { UserDropdown } from './user-dropdown';
+import { Input, Link, Navbar } from '@nextui-org/react';
+
+import { BurguerButton } from 'components/navbar/burguer-button';
+import { NotificationsDropdown } from 'components/navbar/notifications-dropdown';
+import { UserDropdown } from 'components/navbar/user-dropdown';
 
 export const NavbarWrapper = () => {
 	const collapseItems = [

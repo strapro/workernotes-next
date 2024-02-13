@@ -1,20 +1,21 @@
+import React from 'react';
+
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 
 import { Link, Text } from '@nextui-org/react';
-import React from 'react';
 
-import { columns, users } from '../accounts/data';
-import { Table } from '../accounts/table';
-import { Box } from '../styles/box';
-import { Flex } from '../styles/flex';
-import { CardAgents } from './card-agents';
-import { CardBalance1 } from './card-balance1';
-import { CardBalance2 } from './card-balance2';
-import { CardBalance3 } from './card-balance3';
-import { CardTransactions } from './card-transactions';
+import { columns, users } from 'components/accounts/_data';
+import { Table } from 'components/accounts/table';
+import { CardAgents } from 'components/home/card-agents';
+import { CardBalance1 } from 'components/home/card-balance1';
+import { CardBalance2 } from 'components/home/card-balance2';
+import { CardBalance3 } from 'components/home/card-balance3';
+import { CardTransactions } from 'components/home/card-transactions';
+import { Box } from 'components/styles/box';
+import { Flex } from 'components/styles/flex';
 
-const Chart = dynamic(() => import('../charts/steam').then(mod => mod.Steam), {
+const Chart = dynamic(() => import('components/charts/steam').then(mod => mod.Steam), {
 	ssr: false,
 });
 

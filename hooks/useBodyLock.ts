@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from 'hooks/useIsomorphicLayoutEffect';
 
 type ReturnType = [boolean, (locked: boolean) => void];
 

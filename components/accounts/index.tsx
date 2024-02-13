@@ -1,15 +1,18 @@
-import { Button, Input, Text } from '@nextui-org/react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { PiTableBold } from 'react-icons/pi';
 
-import { Database, Worker } from '../../types/database';
-import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
-import { Flex } from '../styles/flex';
-import { columns } from './data';
-import { ModalAddUser } from './modal-add-user';
-import { Table } from './table';
+import { Button, Input, Text } from '@nextui-org/react';
+
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react';
+
+import { columns } from 'components/accounts/_data';
+import { ModalAddUser } from 'components/accounts/modal-add-user';
+import { Table } from 'components/accounts/table';
+import { Breadcrumbs } from 'components/breadcrumbs/breadcrumbs';
+import { Flex } from 'components/styles/flex';
+
+import { Database, Worker } from 'types/database';
 
 export const Accounts = () => {
 	const [loading, setLoading] = useState(true);

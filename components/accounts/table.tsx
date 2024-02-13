@@ -1,7 +1,8 @@
-import { Worker } from '../../types/database';
-import { Column, TableWrapper } from '../table/table';
-import { TableNameCell } from './table-name-cell';
-import { TableRoleCell } from './table-role-cell';
+import { TableNameCell } from 'components/accounts/table-name-cell';
+import { TableRoleCell } from 'components/accounts/table-role-cell';
+import { Column, TableWrapper } from 'components/table/table';
+
+import { Worker } from 'types/database';
 
 interface Props {
 	users: Array<Worker>;

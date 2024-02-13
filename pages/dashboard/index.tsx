@@ -1,8 +1,10 @@
 import type { ReactElement } from 'react';
 
-import { Content } from '../../components/home/content';
-import { Layout } from '../../layout/layout';
-import type { NextPageWithLayout } from '../_app';
+import { Content } from 'components/home/content';
+
+import { Layout } from 'layout/layout';
+
+import type { NextPageWithLayout } from 'pages/_app';
 
 const Home: NextPageWithLayout = () => {
 	return <Content />;

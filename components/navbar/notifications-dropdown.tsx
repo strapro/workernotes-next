@@ -1,6 +1,7 @@
-import { Dropdown, Navbar } from '@nextui-org/react';
 import React from 'react';
 import { PiBellSimpleFill } from 'react-icons/pi';
+
+import { Dropdown, Navbar } from '@nextui-org/react';
 
 export const NotificationsDropdown = () => {
 	return (

@@ -1,8 +1,10 @@
+import { useState } from 'react';
+
 import { useRouter } from 'next/router';
 
 import { Button, FormElement, Input, Spacer, Text } from '@nextui-org/react';
+
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useState } from 'react';
 
 const Form = () => {
 	const supabaseClient = useSupabaseClient();

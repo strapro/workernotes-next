@@ -1,8 +1,9 @@
-import { Avatar, Card, Text } from '@nextui-org/react';
 import React from 'react';
 
-import { Box } from '../styles/box';
-import { Flex } from '../styles/flex';
+import { Avatar, Card, Text } from '@nextui-org/react';
+
+import { Box } from 'components/styles/box';
+import { Flex } from 'components/styles/flex';
 
 const pictureUsers = [
 	'https://i.pravatar.cc/150?u=a042581f4e29026024d',

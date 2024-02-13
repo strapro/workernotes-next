@@ -1,6 +1,7 @@
-import { NextUIProvider, createTheme } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { PropsWithChildren } from 'react';
+
+import { NextUIProvider, createTheme } from '@nextui-org/react';
 
 const lightTheme = createTheme({
 	type: 'light',

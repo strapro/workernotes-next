@@ -1,12 +1,14 @@
-import { useRouter } from 'next/router';
-
 import React, { Fragment } from 'react';
 
-import { menu } from '../../data/menu';
-import { Menu } from '../../types/menu';
-import { CollapseItems } from './collapse-items';
-import { SidebarItem } from './sidebar-item';
-import { SidebarMenu } from './sidebar-menu';
+import { useRouter } from 'next/router';
+
+import { CollapseItems } from 'components/sidebar/collapse-items';
+import { SidebarItem } from 'components/sidebar/sidebar-item';
+import { SidebarMenu } from 'components/sidebar/sidebar-menu';
+
+import { menu } from 'data/menu';
+
+import { Menu } from 'types/menu';
 
 export const SidebarBody = () => {
 	const router = useRouter();

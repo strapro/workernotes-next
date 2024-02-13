@@ -1,13 +1,16 @@
-import { Session } from '@supabase/auth-helpers-nextjs';
-import { useSessionContext } from '@supabase/auth-helpers-react';
 import React from 'react';
 
-import { NavbarWrapper } from '../components/navbar/navbar';
-import { SidebarWrapper } from '../components/sidebar/sidebar';
-import { Box } from '../components/styles/box';
-import { useLockedBody } from '../hooks/useBodyLock';
-import { SidebarContext } from './layout-context';
-import { WrapperLayout } from './layout.styles';
+import { Session } from '@supabase/auth-helpers-nextjs';
+import { useSessionContext } from '@supabase/auth-helpers-react';
+
+import { NavbarWrapper } from 'components/navbar/navbar';
+import { SidebarWrapper } from 'components/sidebar/sidebar';
+import { Box } from 'components/styles/box';
+
+import { useLockedBody } from 'hooks/useBodyLock';
+
+import { WrapperLayout } from 'layout/_styles';
+import { SidebarContext } from 'layout/layout-context';
 
 interface Props {
 	children: React.ReactNode;

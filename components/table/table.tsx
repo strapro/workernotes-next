@@ -1,8 +1,9 @@
-import { Table } from '@nextui-org/react';
 import React, { Key, ReactNode } from 'react';
 
-import { Box } from '../styles/box';
-import { TableCell } from './table-cell';
+import { Table } from '@nextui-org/react';
+
+import { Box } from 'components/styles/box';
+import { TableCell } from 'components/table/table-cell';
 
 export type Column = { name: string; uid: string };
 

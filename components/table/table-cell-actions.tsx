@@ -1,6 +1,7 @@
+import { PiEyeBold, PiPencilSimpleLineBold, PiTrashBold } from 'react-icons/pi';
+
 import { Col, Row, Tooltip } from '@nextui-org/react';
 import { styled } from '@nextui-org/react';
-import { PiEyeBold, PiPencilSimpleLineBold, PiTrashBold } from 'react-icons/pi';
 
 const IconButton = styled('button', {
 	dflex: 'center',

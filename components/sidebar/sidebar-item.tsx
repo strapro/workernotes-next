@@ -1,10 +1,12 @@
+import React from 'react';
+
 import NextLink from 'next/link';
 
 import { Link, Text } from '@nextui-org/react';
-import React from 'react';
 
-import { useSidebarContext } from '../../layout/layout-context';
-import { Flex } from '../styles/flex';
+import { Flex } from 'components/styles/flex';
+
+import { useSidebarContext } from 'layout/layout-context';
 
 interface Props {
 	title: string;

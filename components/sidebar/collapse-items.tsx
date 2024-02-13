@@ -1,11 +1,13 @@
-import Link from 'next/link';
-
-import { Collapse, Text } from '@nextui-org/react';
 import React, { useState } from 'react';
 import { PiCaretUpBold } from 'react-icons/pi';
 
-import { MenuItem } from '../../types/menu';
-import { Flex } from '../styles/flex';
+import Link from 'next/link';
+
+import { Collapse, Text } from '@nextui-org/react';
+
+import { Flex } from 'components/styles/flex';
+
+import { MenuItem } from 'types/menu';
 
 interface Props {
 	icon: React.ReactNode;

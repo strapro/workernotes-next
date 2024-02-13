@@ -1,11 +1,13 @@
+import React, { Key } from 'react';
+
 import { useRouter } from 'next/router';
 
 import { Avatar, Dropdown, Navbar, Text } from '@nextui-org/react';
+
 import { User } from '@supabase/auth-helpers-nextjs';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-import React, { Key } from 'react';
 
-import { DarkModeSwitch } from './darkmodeswitch';
+import { DarkModeSwitch } from 'components/navbar/darkmodeswitch';
 
 export const UserDropdown = () => {
 	const supabaseClient = useSupabaseClient();

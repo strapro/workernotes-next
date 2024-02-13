@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 
 import { Card, Container } from '@nextui-org/react';
 
-import Form from '../components/login/form';
+import Form from 'components/login/form';
 
 const Login: NextPage = () => {
 	return (

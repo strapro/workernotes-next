@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { TableCellActions } from './table-cell-actions';
-import { TableCellStatus } from './table-cell-status';
+import { TableCellActions } from 'components/table/table-cell-actions';
+import { TableCellStatus } from 'components/table/table-cell-status';
 
 interface Props<T> {
 	item: T;

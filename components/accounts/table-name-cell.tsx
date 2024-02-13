@@ -1,7 +1,8 @@
 import { User } from '@nextui-org/react';
+
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
-import { Database, Worker } from '../../types/database';
+import { Database, Worker } from 'types/database';
 
 interface Props {
 	user: Worker;

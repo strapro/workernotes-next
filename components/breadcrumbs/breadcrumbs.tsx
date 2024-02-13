@@ -1,12 +1,15 @@
+import React from 'react';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { Text } from '@nextui-org/react';
-import React from 'react';
 
-import { menu } from '../../data/menu';
-import { Menu, MenuItem } from '../../types/menu';
-import { Breadcrumb, Crumb, CrumbLink } from './breadcrumbs.styles';
+import { Breadcrumb, Crumb, CrumbLink } from 'components/breadcrumbs/_styles';
+
+import { menu } from 'data/menu';
+
+import { Menu, MenuItem } from 'types/menu';
 
 export const Breadcrumbs = () => {
 	const router = useRouter();
