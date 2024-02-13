@@ -18,6 +18,7 @@ export const SidebarBody = () => {
 				case 'item':
 					return (
 						<SidebarItem
+							key={item.title}
 							title={item.title}
 							icon={item.icon!({})}
 							isActive={router.pathname === item.href}
@@ -25,10 +26,19 @@ export const SidebarBody = () => {
 						/>
 					);
 				case 'group':
-					return <SidebarMenu title="Main Menu">{renderMenu(item.items)}</SidebarMenu>;
+					return (
+						<SidebarMenu key={item.title} title={item.title}>
+							{renderMenu(item.items)}
+						</SidebarMenu>
+					);
 				case 'collapse':
 					return (
-						<CollapseItems icon={item.icon!({})} items={item.items} title={item.title} />
+						<CollapseItems
+							key={item.title}
+							icon={item.icon!({})}
+							items={item.items}
+							title={item.title}
+						/>
 					);
 				default:
 					return null;
