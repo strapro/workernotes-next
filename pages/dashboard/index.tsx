@@ -1,13 +1,13 @@
 import type { ReactElement } from 'react';
 
-import { Content } from 'components/home/content';
+import { Home as HomeComponent } from 'components/home';
 
 import { Layout } from 'layout/layout';
 
 import type { NextPageWithLayout } from 'pages/_app';
 
 const Home: NextPageWithLayout = () => {
-	return <Content />;
+	return <HomeComponent />;
 };
 
 Home.getLayout = (page: ReactElement) => {

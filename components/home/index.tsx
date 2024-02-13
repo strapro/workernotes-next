@@ -19,7 +19,7 @@ const Chart = dynamic(() => import('components/charts/steam').then(mod => mod.St
 	ssr: false,
 });
 
-export const Content = () => {
+export const Home = () => {
 	return (
 		<Box css={{ overflow: 'hidden', height: '100%' }}>
 			<Flex
