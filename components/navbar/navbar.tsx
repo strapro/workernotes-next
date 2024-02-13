@@ -56,6 +56,7 @@ export const NavbarWrapper = () => {
 			>
 				<Input
 					clearable
+					aria-label="Search"
 					contentLeft={<PiMagnifyingGlassBold />}
 					contentLeftStyling={false}
 					css={{
