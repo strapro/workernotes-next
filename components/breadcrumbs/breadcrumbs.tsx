@@ -52,7 +52,7 @@ export const Breadcrumbs = () => {
 
 			return crumblist;
 		},
-		[router.asPath]
+		[router.asPath, flatMenuItems]
 	);
 
 	return (
@@ -65,15 +65,18 @@ export const Breadcrumbs = () => {
 				},
 			}}
 		>
-			{breadcrumbs.map((crumb, idx) => (
-				<Crumb key={idx}>
-					{crumb.icon!({})}
-					<Link href={crumb.href}>
-						<CrumbLink href="#">{crumb.title}</CrumbLink>
-					</Link>
-					{idx < breadcrumbs.length - 1 && <Text>/</Text>}
-				</Crumb>
-			))}
+			{breadcrumbs.map(
+				(crumb, idx) =>
+					crumb && (
+						<Crumb key={idx}>
+							{crumb.icon!({})}
+							<Link href={crumb.href}>
+								<CrumbLink href="#">{crumb.title}</CrumbLink>
+							</Link>
+							{idx < breadcrumbs.length - 1 && <Text>/</Text>}
+						</Crumb>
+					)
+			)}
 		</Breadcrumb>
 	);
 };

@@ -1,4 +1,7 @@
+import { EventHandler, MouseEventHandler } from 'react';
 import { PiEyeBold, PiPencilSimpleLineBold, PiTrashBold } from 'react-icons/pi';
+
+import { useRouter } from 'next/router';
 
 import { Col, Row, Tooltip } from '@nextui-org/react';
 import { styled } from '@nextui-org/react';
@@ -21,10 +24,43 @@ const IconButton = styled('button', {
 });
 
 interface Props {
-	item: { id: number };
+	item: { id: string };
 }
 
 export const TableCellActions = ({ item }: Props) => {
+	const router = useRouter();
+	console.log();
+
+	const onPointerDown: MouseEventHandler<HTMLButtonElement> = e => {
+		e.stopPropagation();
+
+		return false;
+	};
+
+	const onView = () => {
+		console.log('View record', item.id);
+
+		router.push(`${router.pathname}/${item.id}/view`);
+
+		return false;
+	};
+
+	const onEdit = () => {
+		console.log('Edit record', item.id);
+
+		router.push(`${router.pathname}/${item.id}/edit`);
+
+		return false;
+	};
+
+	const onDelete = () => {
+		console.log('Delete record', item.id);
+
+		router.push(`${router.pathname}/${item.id}/delete`);
+
+		return false;
+	};
+
 	return (
 		<Row
 			justify="center"
@@ -38,7 +74,8 @@ export const TableCellActions = ({ item }: Props) => {
 			<Col css={{ d: 'flex' }}>
 				<Tooltip content="Details">
 					<IconButton
-						onClick={() => console.log('View record', item.id)}
+						onPointerDown={onPointerDown}
+						onClick={onView}
 						css={{ svg: { color: '#979797' } }}
 					>
 						<PiEyeBold />
@@ -48,7 +85,8 @@ export const TableCellActions = ({ item }: Props) => {
 			<Col css={{ d: 'flex' }}>
 				<Tooltip content="Edit user">
 					<IconButton
-						onClick={() => console.log('Edit record', item.id)}
+						onPointerDown={onPointerDown}
+						onClick={onEdit}
 						css={{ svg: { color: '#979797' } }}
 					>
 						<PiPencilSimpleLineBold />
@@ -58,7 +96,8 @@ export const TableCellActions = ({ item }: Props) => {
 			<Col css={{ d: 'flex' }}>
 				<Tooltip content="Delete user" color="error">
 					<IconButton
-						onClick={() => console.log('Delete record', item.id)}
+						onPointerDown={onPointerDown}
+						onClick={onDelete}
 						css={{ svg: { color: '#FF0080' } }}
 					>
 						<PiTrashBold />

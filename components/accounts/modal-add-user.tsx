@@ -1,6 +1,8 @@
 import { Ulid, Uuid4 } from 'id128';
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { useRouter } from 'next/router';
+
 import {
 	Avatar,
 	Button,
@@ -19,10 +21,11 @@ import { Flex } from 'components/styles/flex';
 import { Database, Worker } from 'types/database';
 
 type Props = {
-	id?: string | null;
+	id?: string;
 };
 
 export const ModalAddUser = ({ id }: Props) => {
+	const router = useRouter();
 	const [visible, setVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [formData, setFormData] = useState<Worker>({
@@ -51,7 +54,7 @@ export const ModalAddUser = ({ id }: Props) => {
 
 			let { data, error, status } = await supabase
 				.from('workers')
-				.select('*')
+				.select('*, departments (*), levels (*)')
 				.eq('manager_id', user?.id)
 				.eq('id', id)
 				.single();
@@ -61,30 +64,51 @@ export const ModalAddUser = ({ id }: Props) => {
 			}
 
 			if (data) {
-				setFormData(data);
+				setFormData(() => ({
+					...data!,
+				}));
 			}
 		} catch (error) {
 			alert('Error loading accounts');
 		} finally {
 			setLoading(false);
 		}
-	}, [user, supabase]);
+	}, [user, supabase, id]);
 
 	const saveAccount = async () => {
+		let data, error, status;
+
 		try {
 			setLoading(true);
 
-			let { data, error, status } = await supabase.from('workers').insert({
-				id: formData.id,
-				first_name: formData.first_name,
-				last_name: formData.last_name,
-				email: formData.email,
-				status: formData.status,
-				department_id: formData.department_id,
-				level_id: formData.level_id,
-				manager_id: user?.id,
-				profile_pic: null,
-			});
+			if (id) {
+				({ data, error, status } = await supabase
+					.from('workers')
+					.update({
+						id: formData.id,
+						first_name: formData.first_name,
+						last_name: formData.last_name,
+						email: formData.email,
+						status: formData.status,
+						department_id: formData.department_id,
+						level_id: formData.level_id,
+						manager_id: user?.id,
+						profile_pic: null,
+					})
+					.eq('id', id));
+			} else {
+				({ data, error, status } = await supabase.from('workers').insert({
+					id: formData.id,
+					first_name: formData.first_name,
+					last_name: formData.last_name,
+					email: formData.email,
+					status: formData.status,
+					department_id: formData.department_id,
+					level_id: formData.level_id,
+					manager_id: user?.id,
+					profile_pic: null,
+				}));
+			}
 
 			if (error && status !== 406) {
 				throw error;
@@ -100,11 +124,16 @@ export const ModalAddUser = ({ id }: Props) => {
 		getAccount();
 	}, [getAccount, id]);
 
+	useEffect(() => {
+		setVisible(id ? true : false);
+	}, [id]);
+
 	const openHandler = () => setVisible(true);
-	const closeHandler = () => setVisible(false);
+	const closeHandler = () => router.push('/dashboard/accounts');
 	const saveHandler = () => {
 		saveAccount();
-		setVisible(false);
+
+		router.push('/dashboard/accounts');
 	};
 
 	const handleInput = (e: React.ChangeEvent<FormElement>) => {
@@ -190,6 +219,7 @@ export const ModalAddUser = ({ id }: Props) => {
 								size="lg"
 								placeholder="First Name"
 								name="first_name"
+								value={formData.first_name || ''}
 								onChange={handleInput}
 							/>
 							<Input
@@ -200,6 +230,7 @@ export const ModalAddUser = ({ id }: Props) => {
 								size="lg"
 								placeholder="Last Name"
 								name="last_name"
+								value={formData.last_name || ''}
 								onChange={handleInput}
 							/>
 						</Flex>
@@ -219,6 +250,7 @@ export const ModalAddUser = ({ id }: Props) => {
 								size="lg"
 								placeholder="Email"
 								name="email"
+								value={formData.email || ''}
 								onChange={handleInput}
 							/>
 							<Input
@@ -229,6 +261,7 @@ export const ModalAddUser = ({ id }: Props) => {
 								size="lg"
 								placeholder="Status"
 								name="status"
+								value={formData.status || ''}
 								onChange={handleInput}
 							/>
 						</Flex>
@@ -248,6 +281,7 @@ export const ModalAddUser = ({ id }: Props) => {
 								bordered
 								fullWidth
 								size="lg"
+								value={formData.departments?.name || ''}
 								placeholder="Department"
 							/>
 							<Input
@@ -256,7 +290,8 @@ export const ModalAddUser = ({ id }: Props) => {
 								bordered
 								fullWidth
 								size="lg"
-								placeholder="Company"
+								value={formData.levels?.name || ''}
+								placeholder="Level"
 							/>
 						</Flex>
 					</Flex>

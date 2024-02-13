@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { PiTableBold } from 'react-icons/pi';
 
+import { useRouter } from 'next/router';
+
 import { Button, Input, Text } from '@nextui-org/react';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -15,6 +17,7 @@ import { Flex } from 'components/styles/flex';
 import { Database, Worker } from 'types/database';
 
 export const Accounts = () => {
+	const router = useRouter();
 	const [loading, setLoading] = useState(true);
 	const [data, setData] = useState<Array<Worker>>([]);
 
@@ -92,7 +95,7 @@ export const Accounts = () => {
 					}}
 					wrap={'wrap'}
 				>
-					<ModalAddUser />
+					<ModalAddUser id={router.query.id as string} />
 					<Button auto iconRight={<PiTableBold />}>
 						Export to CSV
 					</Button>
