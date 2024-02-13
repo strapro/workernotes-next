@@ -27,7 +27,11 @@
 			"settings": {
 				"files.autoSave": "onFocusChange",
 				"editor.formatOnSave": true,
+				"typescript.tsdk": "node_modules/typescript/lib",
 				"terminal.integrated.fontFamily": "\"FiraCode Nerd Font Mono\"",
+				"[javascript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
 				"[typescriptreact]": {
 					"editor.defaultFormatter": "esbenp.prettier-vscode"
 				},
