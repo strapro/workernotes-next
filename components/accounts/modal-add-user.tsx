@@ -1,7 +1,4 @@
-import { Ulid, Uuid4 } from 'id128';
-import React, { useCallback, useEffect, useState } from 'react';
-
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 
 import {
 	Avatar,
@@ -13,127 +10,46 @@ import {
 	Text,
 } from '@nextui-org/react';
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
-
 import { Flex } from 'components/styles/flex';
 
-import { Database, Worker } from 'types/database';
+import { Worker } from 'types/database';
 
 type Props = {
-	id?: string;
+	worker: Worker;
+	open?: boolean;
+	onOpen?: () => void;
+	onClose?: (worker: Worker) => void;
+	onSave?: (worker: Worker) => void;
 };
 
-export const ModalAddUser = ({ id }: Props) => {
-	const router = useRouter();
+export const ModalAddUser = ({ worker, open, onOpen, onClose, onSave }: Props) => {
 	const [visible, setVisible] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const [formData, setFormData] = useState<Worker>({
-		id: id || Uuid4.fromRaw(Ulid.generate().toRaw()).toCanonical(),
-		first_name: null,
-		last_name: null,
-		email: null,
-		status: null,
-		department_id: null,
-		level_id: null,
-		manager_id: null,
-		profile_pic: null,
-		created_at: null,
-		updated_at: null,
-	});
+	const [formData, setFormData] = useState<Worker>({} as Worker);
 
-	const supabase = createClientComponentClient<Database>();
+	useEffect(() => {
+		setFormData(worker);
+	}, [worker]);
 
-	const user = useUser();
+	useEffect(() => {
+		setVisible(!!open);
+	}, [open]);
 
-	const getAccount = useCallback(async () => {
-		if (!id) return;
+	const openHandler = () => {
+		if (onOpen) onOpen();
 
-		try {
-			setLoading(true);
-
-			let { data, error, status } = await supabase
-				.from('workers')
-				.select('*, departments (*), levels (*)')
-				.eq('manager_id', user?.id)
-				.eq('id', id)
-				.single();
-
-			if (error && status !== 406) {
-				throw error;
-			}
-
-			if (data) {
-				setFormData(() => ({
-					...data!,
-				}));
-			}
-		} catch (error) {
-			alert('Error loading accounts');
-		} finally {
-			setLoading(false);
-		}
-	}, [user, supabase, id]);
-
-	const saveAccount = async () => {
-		let data, error, status;
-
-		try {
-			setLoading(true);
-
-			if (id) {
-				({ data, error, status } = await supabase
-					.from('workers')
-					.update({
-						id: formData.id,
-						first_name: formData.first_name,
-						last_name: formData.last_name,
-						email: formData.email,
-						status: formData.status,
-						department_id: formData.department_id,
-						level_id: formData.level_id,
-						manager_id: user?.id,
-						profile_pic: null,
-					})
-					.eq('id', id));
-			} else {
-				({ data, error, status } = await supabase.from('workers').insert({
-					id: formData.id,
-					first_name: formData.first_name,
-					last_name: formData.last_name,
-					email: formData.email,
-					status: formData.status,
-					department_id: formData.department_id,
-					level_id: formData.level_id,
-					manager_id: user?.id,
-					profile_pic: null,
-				}));
-			}
-
-			if (error && status !== 406) {
-				throw error;
-			}
-		} catch (error) {
-			alert('Error saving account');
-		} finally {
-			setLoading(false);
-		}
+		setVisible(true);
 	};
 
-	useEffect(() => {
-		getAccount();
-	}, [getAccount, id]);
+	const closeHandler = () => {
+		if (onClose) onClose(formData);
 
-	useEffect(() => {
-		setVisible(id ? true : false);
-	}, [id]);
+		setVisible(false);
+	};
 
-	const openHandler = () => setVisible(true);
-	const closeHandler = () => router.push('/dashboard/accounts');
-	const saveHandler = () => {
-		saveAccount();
+	const saveHandler = async () => {
+		if (onSave) onSave(formData);
 
-		router.push('/dashboard/accounts');
+		setVisible(false);
 	};
 
 	const handleInput = (e: React.ChangeEvent<FormElement>) => {

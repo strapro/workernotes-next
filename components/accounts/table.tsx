@@ -5,19 +5,28 @@ import { Column, TableWrapper } from 'components/table/table';
 import { Worker } from 'types/database';
 
 interface Props {
-	users: Array<Worker>;
+	workers: Array<Worker>;
 	columns: Array<Column>;
+	onView: (selectedId: string) => void;
+	onEdit: (selectedId: string) => void;
+	onDelete: (selectedId: string) => void;
 }
 
-export const Table = ({ users, columns }: Props) => {
+export const Table = ({ workers, columns, onView, onEdit, onDelete }: Props) => {
 	return (
-		<TableWrapper columns={columns} data={users}>
+		<TableWrapper
+			columns={columns}
+			data={workers}
+			onView={onView}
+			onEdit={onEdit}
+			onDelete={onDelete}
+		>
 			{(item, columnKey) => {
 				switch (columnKey) {
 					case 'name':
-						return <TableNameCell user={item} />;
+						return <TableNameCell worker={item} />;
 					case 'role':
-						return <TableRoleCell user={item} />;
+						return <TableRoleCell worker={item} />;
 				}
 			}}
 		</TableWrapper>

@@ -5,24 +5,24 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database, Worker } from 'types/database';
 
 interface Props {
-	user: Worker;
+	worker: Worker;
 }
 
-export const TableNameCell = ({ user }: Props) => {
+export const TableNameCell = ({ worker }: Props) => {
 	const supabase = createClientComponentClient<Database>();
 	const profilePic = supabase.storage
 		.from('worker-profile-pics')
-		.getPublicUrl(user.profile_pic!).data.publicUrl;
+		.getPublicUrl(worker.profile_pic!).data.publicUrl;
 
 	return (
 		<User
 			bordered
 			color="gradient"
 			src={profilePic}
-			name={`${user.first_name}  ${user.last_name}`}
+			name={`${worker.first_name}  ${worker.last_name}`}
 			css={{ p: 0 }}
 		>
-			{user.email}
+			{worker.email}
 		</User>
 	);
 };
