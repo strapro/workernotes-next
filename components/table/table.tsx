@@ -10,12 +10,18 @@ export type Column = { name: string; uid: string };
 interface TableProps<T> {
 	data: Array<T>;
 	columns: Array<Column>;
+	onView?: (selectedId: string) => void;
+	onEdit?: (selectedId: string) => void;
+	onDelete?: (selectedId: string) => void;
 	children?: (item: T, columnKey: Key) => ReactNode;
 }
 
-export const TableWrapper = <T extends object>({
+export const TableWrapper = <T extends { id: string }>({
 	columns,
 	data,
+	onView,
+	onEdit,
+	onDelete,
 	children,
 }: TableProps<T>) => {
 	return (
@@ -51,10 +57,16 @@ export const TableWrapper = <T extends object>({
 				<Table.Body items={data}>
 					{item => (
 						<Table.Row>
-							{columnKey => (
+							{(columnKey: Key) => (
 								<Table.Cell>
 									{(children !== undefined && children!(item, columnKey)) ||
-										TableCell({ item: item, columnKey: columnKey })}
+										TableCell({
+											item: item,
+											columnKey: columnKey,
+											onView: onView,
+											onEdit: onEdit,
+											onDelete: onDelete,
+										})}
 								</Table.Cell>
 							)}
 						</Table.Row>

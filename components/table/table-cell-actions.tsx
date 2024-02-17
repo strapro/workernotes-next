@@ -1,7 +1,5 @@
-import { EventHandler, MouseEventHandler } from 'react';
+import { MouseEventHandler } from 'react';
 import { PiEyeBold, PiPencilSimpleLineBold, PiTrashBold } from 'react-icons/pi';
-
-import { useRouter } from 'next/router';
 
 import { Col, Row, Tooltip } from '@nextui-org/react';
 import { styled } from '@nextui-org/react';
@@ -25,38 +23,32 @@ const IconButton = styled('button', {
 
 interface Props {
 	item: { id: string };
+	onView?: (selectedId: string) => void;
+	onEdit?: (selectedId: string) => void;
+	onDelete?: (selectedId: string) => void;
 }
 
-export const TableCellActions = ({ item }: Props) => {
-	const router = useRouter();
-	console.log();
-
+export const TableCellActions = ({ item, onView, onEdit, onDelete }: Props) => {
 	const onPointerDown: MouseEventHandler<HTMLButtonElement> = e => {
 		e.stopPropagation();
 
 		return false;
 	};
 
-	const onView = () => {
-		console.log('View record', item.id);
-
-		router.push(`${router.pathname}/${item.id}/view`);
+	const onViewHandler = () => {
+		if (onView) onView(item.id);
 
 		return false;
 	};
 
-	const onEdit = () => {
-		console.log('Edit record', item.id);
-
-		router.push(`${router.pathname}/${item.id}/edit`);
+	const onEditHandler = () => {
+		if (onEdit) onEdit(item.id);
 
 		return false;
 	};
 
-	const onDelete = () => {
-		console.log('Delete record', item.id);
-
-		router.push(`${router.pathname}/${item.id}/delete`);
+	const onDeleteHandler = () => {
+		if (onDelete) onDelete(item.id);
 
 		return false;
 	};
@@ -75,7 +67,7 @@ export const TableCellActions = ({ item }: Props) => {
 				<Tooltip content="Details">
 					<IconButton
 						onPointerDown={onPointerDown}
-						onClick={onView}
+						onClick={onViewHandler}
 						css={{ svg: { color: '#979797' } }}
 					>
 						<PiEyeBold />
@@ -86,7 +78,7 @@ export const TableCellActions = ({ item }: Props) => {
 				<Tooltip content="Edit user">
 					<IconButton
 						onPointerDown={onPointerDown}
-						onClick={onEdit}
+						onClick={onEditHandler}
 						css={{ svg: { color: '#979797' } }}
 					>
 						<PiPencilSimpleLineBold />
@@ -97,7 +89,7 @@ export const TableCellActions = ({ item }: Props) => {
 				<Tooltip content="Delete user" color="error">
 					<IconButton
 						onPointerDown={onPointerDown}
-						onClick={onDelete}
+						onClick={onDeleteHandler}
 						css={{ svg: { color: '#FF0080' } }}
 					>
 						<PiTrashBold />
