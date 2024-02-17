@@ -29,6 +29,7 @@
 				"editor.formatOnSave": true,
 				"typescript.tsdk": "node_modules/typescript/lib",
 				"terminal.integrated.fontFamily": "\"FiraCode Nerd Font Mono\"",
+				"git.inputValidation": "always",
 				"[javascript]": {
 					"editor.defaultFormatter": "esbenp.prettier-vscode"
 				},
