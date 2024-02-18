@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { Key, useEffect, useState } from 'react';
 
 import {
 	Avatar,
 	Button,
 	Divider,
+	Dropdown,
 	FormElement,
 	Input,
 	Modal,
@@ -11,6 +12,9 @@ import {
 } from '@nextui-org/react';
 
 import { Flex } from 'components/styles/flex';
+
+import { useDepartments } from 'hooks/supabase/useDepartments';
+import { useLevels } from 'hooks/supabase/useLevels';
 
 import { Worker } from 'types/database';
 
@@ -22,9 +26,12 @@ type Props = {
 	onSave?: (worker: Worker) => void;
 };
 
-export const ModalAddUser = ({ worker, open, onOpen, onClose, onSave }: Props) => {
+export const ModalForm = ({ worker, open, onOpen, onClose, onSave }: Props) => {
 	const [visible, setVisible] = useState(false);
 	const [formData, setFormData] = useState<Worker>({} as Worker);
+
+	const { departments } = useDepartments();
+	const { levels } = useLevels();
 
 	useEffect(() => {
 		setFormData(worker);
@@ -59,6 +66,13 @@ export const ModalAddUser = ({ worker, open, onOpen, onClose, onSave }: Props) =
 		setFormData(prevState => ({
 			...prevState,
 			[fieldName]: fieldValue,
+		}));
+	};
+
+	const handleDropdownInput = (fieldName: string, selection: 'all' | Set<Key>) => {
+		setFormData(prevState => ({
+			...prevState,
+			[fieldName]: (selection as Set<Key>).entries().next().value[0],
 		}));
 	};
 
@@ -191,24 +205,86 @@ export const ModalAddUser = ({ worker, open, onOpen, onClose, onSave }: Props) =
 								'@lg': { flexWrap: 'nowrap' },
 							}}
 						>
-							<Input
-								label="Department"
-								clearable
-								bordered
-								fullWidth
-								size="lg"
-								value={formData.departments?.name || ''}
-								placeholder="Department"
-							/>
-							<Input
-								label="Role"
-								clearable
-								bordered
-								fullWidth
-								size="lg"
-								value={formData.levels?.name || ''}
-								placeholder="Level"
-							/>
+							<Flex
+								css={{
+									width: '100%',
+									flexDirection: 'column',
+									fontSize: 'var(--nextui--inputFontSize)',
+								}}
+							>
+								<Text>Department</Text>
+								<Dropdown>
+									<Dropdown.Button
+										light
+										css={{
+											width: '100%',
+											textAlign: 'left',
+											border: '1px solid',
+											justifyContent: 'space-between',
+											fontSize: 'var(--nextui--inputFontSize)',
+										}}
+									>
+										{departments.find(
+											department => department.id == formData.department_id
+										)?.name || ''}
+									</Dropdown.Button>
+									<Dropdown.Menu
+										aria-label="Level"
+										variant="light"
+										disallowEmptySelection
+										selectionMode="single"
+										selectedKeys={formData.level_id || ''}
+										onSelectionChange={selection =>
+											handleDropdownInput('department_id', selection)
+										}
+									>
+										{departments.map(department => {
+											return (
+												<Dropdown.Item key={department.id}>
+													{department.name}
+												</Dropdown.Item>
+											);
+										})}
+									</Dropdown.Menu>
+								</Dropdown>
+							</Flex>
+							<Flex
+								css={{
+									width: '100%',
+									flexDirection: 'column',
+									fontSize: 'var(--nextui--inputFontSize)',
+								}}
+							>
+								<Text>Level</Text>
+								<Dropdown>
+									<Dropdown.Button
+										light
+										css={{
+											width: '100%',
+											textAlign: 'left',
+											border: '1px solid',
+											justifyContent: 'space-between',
+											fontSize: 'var(--nextui--inputFontSize)',
+										}}
+									>
+										{levels.find(level => level.id == formData.level_id)?.name || ''}
+									</Dropdown.Button>
+									<Dropdown.Menu
+										aria-label="Level"
+										variant="light"
+										disallowEmptySelection
+										selectionMode="single"
+										selectedKeys={formData.level_id || ''}
+										onSelectionChange={selection =>
+											handleDropdownInput('level_id', selection)
+										}
+									>
+										{levels.map(level => {
+											return <Dropdown.Item key={level.id}>{level.name}</Dropdown.Item>;
+										})}
+									</Dropdown.Menu>
+								</Dropdown>
+							</Flex>
 						</Flex>
 					</Flex>
 				</Modal.Body>
