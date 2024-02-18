@@ -1,160 +1,31 @@
-import { Ulid, Uuid4 } from 'id128';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PiTableBold } from 'react-icons/pi';
 
 import { useRouter } from 'next/router';
 
 import { Button, Input, Text } from '@nextui-org/react';
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
-
 import { columns } from 'components/accounts/_data';
-import { ModalAddUser } from 'components/accounts/modal-add-user';
+import { ModalForm } from 'components/accounts/modal-form';
 import { Table } from 'components/accounts/table';
 import { Breadcrumbs } from 'components/breadcrumbs/breadcrumbs';
 import { Flex } from 'components/styles/flex';
+
+import { useWorker } from 'hooks/supabase/useWorker';
+import { useWorkers } from 'hooks/supabase/useWorkers';
 
 import { Database, Worker } from 'types/database';
 
 const BASE_PATH = '/dashboard/accounts';
 
 export const Accounts = () => {
-	const supabase = createClientComponentClient<Database>();
-
-	const [loading, setLoading] = useState(true);
-	const [workers, setWorkers] = useState<Array<Worker>>([]);
-	const [selectedWorker, setSelectedWorker] = useState<Worker>({} as Worker);
 	const [selectedWorkerID, setSelectedWorkerId] = useState<string>();
 	const [selectedAction, setSelectedAction] = useState<string>();
 
-	const user = useUser();
 	const router = useRouter();
 
-	const getWorkers = useCallback(async () => {
-		try {
-			setLoading(true);
-
-			let { data, error, status } = await supabase
-				.from('workers')
-				.select('*, departments (*), levels (*)')
-				.eq('manager_id', user?.id);
-
-			if (error && status !== 406) {
-				throw error;
-			}
-
-			if (data) {
-				setWorkers(data);
-			}
-		} catch (error) {
-			alert('Error loading workers');
-		} finally {
-			setLoading(false);
-		}
-	}, [user, supabase]);
-
-	const getWorker = useCallback(async () => {
-		if (selectedWorkerID) {
-			try {
-				let { data, error, status } = await supabase
-					.from('workers')
-					.select('*, departments (*), levels (*)')
-					.eq('manager_id', user?.id)
-					.eq('id', selectedWorkerID)
-					.single();
-
-				if (error && status !== 406) {
-					throw error;
-				}
-
-				if (data) {
-					setSelectedWorker(data);
-				}
-			} catch (error) {
-				alert('Error loading workers');
-			}
-		} else {
-			setSelectedWorker({
-				id: Uuid4.fromRaw(Ulid.generate().toRaw()).toCanonical(),
-				first_name: null,
-				last_name: null,
-				email: null,
-				status: null,
-				department_id: null,
-				level_id: null,
-				manager_id: null,
-				profile_pic: null,
-				created_at: null,
-				updated_at: null,
-			});
-		}
-	}, [user, supabase, selectedWorkerID]);
-
-	const saveWorker = useCallback(
-		async (worker: Worker) => {
-			let data, error, status;
-
-			try {
-				({ data, error, status } = await supabase.from('workers').insert({
-					id: worker.id,
-					first_name: worker.first_name,
-					last_name: worker.last_name,
-					email: worker.email,
-					status: worker.status,
-					department_id: worker.department_id,
-					level_id: worker.level_id,
-					manager_id: user?.id,
-					profile_pic: null,
-				}));
-
-				if (error && status !== 406) {
-					throw error;
-				}
-			} catch (error) {
-				alert('Error saving worker');
-			}
-		},
-		[user, supabase]
-	);
-
-	const updateWorker = useCallback(
-		async (worker: Worker) => {
-			let data, error, status;
-
-			try {
-				({ data, error, status } = await supabase
-					.from('workers')
-					.update({
-						id: worker.id,
-						first_name: worker.first_name,
-						last_name: worker.last_name,
-						email: worker.email,
-						status: worker.status,
-						department_id: worker.department_id,
-						level_id: worker.level_id,
-						manager_id: user?.id,
-						profile_pic: null,
-					})
-					.eq('id', selectedWorkerID));
-
-				if (error && status !== 406) {
-					throw error;
-				}
-			} catch (error) {
-				alert('Error saving worker');
-			}
-		},
-		[user, supabase, selectedWorkerID]
-	);
-
-	useEffect(() => {
-		getWorkers();
-	}, [getWorkers]);
-
-	useEffect(() => {
-		getWorker();
-	}, [getWorker]);
+	const { loading: workerLoading, workers } = useWorkers();
+	const { worker, updateWorker, saveWorker } = useWorker(selectedWorkerID);
 
 	useEffect(() => {
 		if (!router.isReady) return;
@@ -236,8 +107,8 @@ export const Accounts = () => {
 					}}
 					wrap={'wrap'}
 				>
-					<ModalAddUser
-						worker={selectedWorker}
+					<ModalForm
+						worker={worker}
 						open={['new', 'edit'].includes(selectedAction!)}
 						onClose={closeHandler}
 						onSave={saveHandler}
@@ -248,7 +119,7 @@ export const Accounts = () => {
 				</Flex>
 			</Flex>
 
-			{!loading && (
+			{!workerLoading && (
 				<Table
 					workers={workers}
 					columns={columns}
